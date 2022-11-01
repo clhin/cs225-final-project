@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+#executables and weird mac build fragments
+terrordb
+*.dSYM
+
+#unzipped csv
+globalterrorismdb_0522dist.csv
