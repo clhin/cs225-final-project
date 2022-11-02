@@ -3,8 +3,8 @@
 CXX=clang++
 CXX_FLAGS=-std=c++20 -g -O0 -Wall -Wextra -Werror -Iinc/
 
-terrordb: src/main.cpp
-	${CXX} ${CXX_FLAGS} src/main.cpp -o terrordb
+terrordb: src/main.cpp src/graph.cpp inc/graph.hpp
+	${CXX} ${CXX_FLAGS} src/main.cpp src/graph.cpp -o terrordb
 .DEFAULT_GOAL := terrordb
 .PHONY: clean terrordb unzip
 
