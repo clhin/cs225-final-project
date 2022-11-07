@@ -26,3 +26,4 @@ We will have a voting system for any conflicts. In the event of a split vote, we
 Chase Hinkle chinkle3@illinois.edu
 John Hofmann johnwh3@illinois.edu
 Rithvik Kopparapu rithvik9@illinois.edu
+Praneeth Rangamudri jrang3@illinois.edu
