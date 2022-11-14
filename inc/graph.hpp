@@ -41,8 +41,8 @@ Graph::Graph(const std::string& db_fpath) {
 				exporter = countrycodes(stoi(token));
 			if(count == 2)
 				importer = countrycodes(stoi(token));
-            if(count == 4)
-                productVal = stof(token);
+            		if(count == 4)
+                		productVal = stof(token);
 
 			line.erase(0, pos + 1);
 			count++;	
