@@ -14,9 +14,9 @@
 // q: quantity
 
 Graph::Graph(const std::string& db_fpath) {
-	for (uint x = 0; x <= 273; x++) {
+	for (uint x = 0; x <= 237; x++) {
 		std::vector<int> tmpvect;
-		for (uint y = 0; y <= 273; y++) {
+		for (uint y = 0; y <= 237; y++) {
 			tmpvect.push_back(0);
 		}
 		graph.push_back(tmpvect);
