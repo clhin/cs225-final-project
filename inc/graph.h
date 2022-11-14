@@ -19,5 +19,6 @@ class Graph {
         //     }
         // };
 	private:
-	    std::map<std::map<float>> graph;
+        int Graph::countrycodes(int i);
+	    std::vector<std::vector<float>> graph;
 };
