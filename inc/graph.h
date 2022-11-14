@@ -1,5 +1,4 @@
 #pragma once
-#include "countries.h"
 #include <map>
 #include <vector>
 #include <string>
@@ -9,7 +8,7 @@
 class Graph {
 	public:
 	    Graph(const string& db_fpath);
-    //if we use vectors, use this
+        //if we use vectors, use this
         // class Pair{
         // public:
         //     unsigned nationCode;
@@ -20,5 +19,5 @@ class Graph {
         //     }
         // };
 	private:
-	    map<map<float>> graph;
+	    std::map<std::map<float>> graph;
 };
