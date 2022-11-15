@@ -13,15 +13,17 @@
 // v: value 
 // q: quantity
 
+
+//Takes csv file input of the trade data and constructs the vector of vectors graph; an adjacency matrix
 Graph::Graph(const std::string& db_fpath) {
 	for (uint x = 0; x <= 237; x++) {
-		std::vector<int> tmpvect;
+		std::vector<float> tmpvect;
 		for (uint y = 0; y <= 237; y++) {
 			tmpvect.push_back(0);
 		}
 		graph.push_back(tmpvect);
 	}
-
+	int lineCount = 0;
     std::string line;
 	std::ifstream db(db_fpath);
 	while(getline(db, line, '\n')) {
@@ -37,20 +39,26 @@ Graph::Graph(const std::string& db_fpath) {
 				count++;
 				continue;
 			}
-			if(count == 1)
-				exporter = countrycodes(stoi(token));
-			if(count == 2)
-				importer = countrycodes(stoi(token));
-            		if(count == 4)
-                		productVal = stof(token);
+			if(lineCount != 0){
+				if(count == 1)
+					exporter = countrycodes(std::stoi(token));
+				if(count == 2)
+					importer = countrycodes(std::stoi(token));
+            	if(count == 4)
+            		productVal = std::stof(token);
+			}
 
 			line.erase(0, pos + 1);
 			count++;	
 		}
-		graph[exporter][importer] += productVal;
+		if(lineCount != 0)
+			graph[exporter][importer] += productVal;
+		lineCount++;
 	}
 }
 
+//takes country code input as an int and returns the enumerated value of the country, ie the position in the vectors
+//in each node
 int Graph::countrycodes(int i){
 	switch (i){
 		case 4: return 0;
