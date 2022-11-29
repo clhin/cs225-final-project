@@ -57,6 +57,12 @@ Graph::Graph(const std::string& db_fpath) {
 	}
 }
 
+float Graph::Exports(int exporter, int importer){
+	int normExporter = countrycodes(exporter);
+	int normImporter = countrycodes(importer);
+	return graph[normExporter][normImporter];
+}
+
 //takes country code input as an int and returns the enumerated value of the country, ie the position in the vectors
 //in each node
 int Graph::countrycodes(int i){
@@ -301,4 +307,5 @@ int Graph::countrycodes(int i){
 		case 894: return 237;
 
 	}
+	return -1;
 }
