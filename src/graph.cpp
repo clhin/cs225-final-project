@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <queue>
 #define NATION_COUNT 200 // placeholder if we use vectors
 
 // List of Variables :
@@ -308,6 +309,31 @@ int Graph::countrycodes(int i){
 
 	}
 	return -1;
+}
+std::vector<int> Graph::BFS(int start){
+	std::queue bfsqueue;
+	bfsqueue.push(start);
+
+	std::vector<int> traversal;
+	traversal.push_back(start);
+
+	std::map<int, bool> visited;
+	visited[start] = true;
+
+	while(!bfsqueue.empty()){
+		curr = bfsqueue.pop();
+		visited[curr] = true;
+		traversal.push_back(curr);
+
+		for(int i : graph(curr)){
+			if(!visited(i)){
+				if(graph[curr][i] != 0){
+					bfsqueue.push(i);
+				}
+			}
+		}
+	}
+	return traversal;
 }
 
 std::map<int, float> Graph::Djikstra(int country_code) { //given a country code, returns min distance to every node represented in a map where key is a node in graph val is dist to that node 

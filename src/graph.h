@@ -12,6 +12,7 @@ class Graph {
 	    Graph(const std::string& db_fpath);
         float Exports(int exporter, int importer);
 		std::map<int, float> Djikstra(int country_code);
+		std::vector<int> BFS(int start);
 	private:
 		int countrycodes(int i);
 	    std::vector<std::vector<float>> graph;
