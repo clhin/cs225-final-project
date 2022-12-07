@@ -317,7 +317,7 @@ std::vector<int> Graph::BFS(int start){
 	std::vector<int> traversal;
 	traversal.push_back(start);
 
-	std::map<int, bool> visited;
+	std::vector<bool> visited(graph.size(), false);
 	visited[start] = true;
 
 	while(!bfsqueue.empty()){
