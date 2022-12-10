@@ -341,8 +341,8 @@ std::vector<int> Graph::BFS(int start){
 	}
 	return traversal;
 }
-
-std::vector<float> Graph::Djikstra(int country_code) { //given a country code, returns min distance to every node represented in a map where key is a node in graph val is dist to that node 
+//Given a country code, returns the approximate trade price to all other countries represented in a vector. We assume that trade price is inversly proptional to dollar amount of exports between countries
+std::vector<float> Graph::Djikstra(int country_code) { 
 	std::priority_queue<std::pair<float, int>, std::vector<std::pair<float, int>>, std::greater<std::pair<float, int>>> inverse_pq;
 	int key_row = countrycodes(country_code); //Gets the row we need to go to on matrix based on country code passed
 	std::vector<float>vect_dist;
