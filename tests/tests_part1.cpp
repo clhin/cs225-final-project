@@ -28,3 +28,77 @@ TEST_CASE("buildGraph5", "[weight=10][part1]"){
     Graph nations = Graph("../BACI_HS17_Y2020_V202201.csv");
     REQUIRE(ceil(148533.361f) == ceil(nations.Exports(112,31)));
 }
+//Djikstra Test Cases
+TEST_CASE("djikstra1", "[weight=10][part1]") { //Tests Undirected Simple Graph
+    std::vector<std::vector<float>> test_matrix_one= {
+    {0, 10, 20, 30, 0},
+    {10, 0, 15, 0, 10},
+    {20, 15, 0, 20, 15},
+    {30, 0, 20, 0, 20},
+    {0, 10, 15, 20, 0}};
+    Graph nations;
+
+    std::vector<float>correct_dist_from_zero = {0,1.0/10,1.0/20,1.0/30, (1.0/30 + 1.0/20)};
+    std::vector<float>output_zero = nations.TestDjikstra(0,test_matrix_one);
+    REQUIRE(compare_float(correct_dist_from_zero, output_zero));
+
+    std::vector<float>correct_dist_from_four = {(1.0/30 + 1.0/20),1.0/10,1.0/15,1.0/20, 0};
+    std::vector<float>output_four = nations.TestDjikstra(4,test_matrix_one);
+    REQUIRE(compare_float(correct_dist_from_four, output_four));
+
+}
+TEST_CASE("djikstra2", "[weight=10][part1]") { //Tests Graph where some pair of nodes are connected by more than one edge 
+    std::vector<std::vector<float>> test_matrix_one= {
+    {0, 10, 20, 30, 0},
+    {20, 0, 15, 0, 10},
+    {20, 15, 0, 20, 15},
+    {30, 0, 35, 0, 20},
+    {0, 10, 15, 20, 0}};
+    Graph nations;
+
+    std::vector<float>correct_dist_from_zero = {0,1.0/10,1.0/20,1.0/30, (1.0/30 + 1.0/20)};
+    std::vector<float>output_zero = nations.TestDjikstra(0,test_matrix_one);
+    REQUIRE(compare_float(correct_dist_from_zero, output_zero));
+
+    std::vector<float>correct_dist_from_four = {(1.0/30 + 1.0/20),1.0/10,1.0/15,1.0/20, 0};
+    std::vector<float>output_four = nations.TestDjikstra(4,test_matrix_one);
+    REQUIRE(compare_float(correct_dist_from_four, output_four));
+    
+}
+TEST_CASE("djikstra3", "[weight=10][part1]") { //Test graph where there's more than one node in graph such that it's not neighbor to every other node in graph
+    std::vector<std::vector<float>> test_matrix_one= { //Essentially if you start at any node there will be more than one node in graph such that it's not a neighbor to the start node
+    {0, 4, 4, 0, 0, 0},
+    {4, 0, 2, 0, 0, 0},
+    {4, 2, 0, 3, 1, 6},
+    {0, 0, 3, 0, 0, 2},
+    {0, 0, 1, 0, 0, 3},
+    {0, 0, 6, 2, 3, 0}};
+    Graph nations;
+    std::vector<float>correct_dist_from_zero = {0, 1.0/4, 1.0/4, 7.0/12, 0.75, 5.0/12};
+    std::vector<float>output_zero = nations.TestDjikstra(0,test_matrix_one);
+    REQUIRE(compare_float(correct_dist_from_zero,output_zero));
+
+
+    std::vector<float>correct_dist_from_five = {5.0/12, 2.0/3, 1.0/6, 1.0/2, 1.0/3, 0};
+    std::vector<float>output_five = nations.TestDjikstra(5,test_matrix_one);
+    REQUIRE(compare_float(correct_dist_from_five,output_five));
+}
+TEST_CASE("djikstra4", "[weight=10][part1]") { //Similar to previous test case except some pair of nodes are connected by more than one edge
+    std::vector<std::vector<float>> test_matrix_one= {
+    {0, 4, 4, 0, 0, 0},
+    {8, 0, 2, 0, 0, 0},
+    {4, 2, 0, 3, 1, 6},
+    {0, 0, 6, 0, 0, 9},
+    {0, 0, 7, 0, 0, 3},
+    {0, 0, 9, 2, 3, 0}};
+    Graph nations;
+    std::vector<float>correct_dist_from_zero = {0, 1.0/4, 1.0/4, 7.0/12, 0.75, 5.0/12};
+    std::vector<float>output_zero = nations.TestDjikstra(0,test_matrix_one);
+    //REQUIRE(correct_dist_from_zero == output_zero);
+    REQUIRE(compare_float(correct_dist_from_zero,output_zero));
+
+
+    std::vector<float>correct_dist_from_five = {13.0/36, 11.0/18, 1.0/9, 4.0/9, 1.0/3, 0};
+    std::vector<float>output_five = nations.TestDjikstra(5,test_matrix_one);
+    REQUIRE(compare_float(correct_dist_from_five,output_five));
+}
