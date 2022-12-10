@@ -13,6 +13,7 @@ class Graph {
         float Exports(int exporter, int importer);
 		std::map<int, float> Djikstra(int country_code);
 		std::vector<int> BFS(int start);
+		std::vector<float> pagerank(int i);
 	private:
 		int countrycodes(int i);
 	    std::vector<std::vector<float>> graph;
