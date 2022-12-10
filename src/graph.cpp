@@ -389,7 +389,7 @@ std::vector<float> Graph::TestDjikstra(int idx, std::vector<std::vector<float>> 
 }
 
 
-std::vector<int> Graph::pagerank(int iterations) {
+std::vector<float> Graph::pagerank(int iterations) {
 	double dampeningfactor = 0.85;
 	int size = graph.size()
 	std::vector<float> currentpagerank, newpagerank, inlinks(size, 0), outlinks(size, 0);
