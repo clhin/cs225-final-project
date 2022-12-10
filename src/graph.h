@@ -11,7 +11,6 @@ class Graph {
 	public:
 	    Graph(const std::string& db_fpath);
         float Exports(int exporter, int importer);
-		std::map<int, float> Djikstra(int country_code);
 		std::vector<int> BFS(int start);
 		std::vector<float> pagerank(int i);
 		std::vector<float> Djikstra(int country_code);
