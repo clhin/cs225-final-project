@@ -326,12 +326,13 @@ std::vector<int> Graph::BFS(int start){
 	visited[start] = true; //marking the first point as visited.
 
 	while(!bfsq.empty()){ //loop that traverses every point, marking each as visited, and saving the order in the traversal vector.
-		int curr = bfsq.pop();
+		int curr = bfsq.back();
+		bfsq.pop();
 		visited[curr] = true;
 		traversal.push_back(curr);
 
-		for(int i : graph(curr)){
-			if(!visited(i)){
+		for(int i : graph[curr]){
+			if(!visited[i]){
 				if(graph[curr][i] != 0){
 					bfsq.push(i);
 				}
