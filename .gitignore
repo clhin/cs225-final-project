@@ -35,5 +35,7 @@
 terrordb
 *.dSYM
 
+build
+
 #unzipped csv
 globalterrorismdb_0522dist.csv

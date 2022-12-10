@@ -394,32 +394,32 @@ std::vector<float> Graph::pagerank(int iterations) {
 	double dampeningfactor = 0.85;
 	int size = graph.size();
 	std::vector<float> currentpagerank, newpagerank, inlinks(size, 0), outlinks(size, 0);
-	for (int row = 0; row < graph.size(); row++) {
-		int outlinks = 0; inlinks = 0;
-		for (int col = 0; i < graph.at(row).size(); col++) {
+	for (uint row = 0; row < graph.size(); row++) {
+		//int outlinks = 0; inlinks = 0;
+		for (uint col = 0; col < graph.at(row).size(); col++) {
 			if (graph.at(row).at(col) != 0) {
 				outlinks.at(row)++;
-				inlins.at(col)++;
+				inlinks.at(col)++;
 			}
 		}
 	}
-	for (int row = 0; row < graph.size(); row++) {
+	for (uint row = 0; row < graph.size(); row++) {
 			currentpagerank.push_back(1/size);
 	}
 	while (iterations > 0) {
 		int rank = 0;
-		for (int i = 0; i < outlinks.size(); i++) {
+		for (uint i = 0; i < outlinks.size(); i++) {
 			if (outlinks.at(i) == 0)
-				dp = dp + dampeningfactor * currentpagerank.at(i)/size;
+				rank = rank + dampeningfactor * currentpagerank.at(i)/size;
 		}
-		for (int row = 0; row < graph.size(); row++) {
+		for (uint row = 0; row < graph.size(); row++) {
 			newpagerank.at(row) = rank + (1-dampeningfactor)/size;
-			for (int i = 0; i < inlinks.size(); i++) {
-				newpagerank.at(row) = newpagerank.at(row) + (d*currentpagerank.at(i))/outlinks.at(i);
+			for (uint i = 0; i < inlinks.size(); i++) {
+				newpagerank.at(row) = newpagerank.at(row) + (dampeningfactor*currentpagerank.at(i))/outlinks.at(i);
 			}
 		}
 		currentpagerank = newpagerank;
-		iteration--;
+		iterations--;
 	}
 	return currentpagerank;
 }
