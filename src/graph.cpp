@@ -316,8 +316,8 @@ Inputs: The starting country code, given as an int
 Outputs: A vector containing the BFS traversal order of the graph, full of country codes.
 */
 std::vector<int> Graph::BFS(int start){
-	std::queue bfsqueue; //queue to keep track of the traversal.
-	bfsqueue.push(start); //loading the queue with the first point.
+	std::queue<int> bfsq; //queue to keep track of the traversal.
+	bfsq.push(start); //loading the queue with the first point.
 
 	std::vector<int> traversal; //vector that contains the traversal history.
 	traversal.push_back(start); //loading the vector with the first point.
@@ -325,15 +325,15 @@ std::vector<int> Graph::BFS(int start){
 	std::vector<bool> visited(graph.size(), false); //vector that keeps track of the history of points visited.
 	visited[start] = true; //marking the first point as visited.
 
-	while(!bfsqueue.empty()){ //loop that traverses every point, marking each as visited, and saving the order in the traversal vector.
-		curr = bfsqueue.pop();
+	while(!bfsq.empty()){ //loop that traverses every point, marking each as visited, and saving the order in the traversal vector.
+		int curr = bfsq.pop();
 		visited[curr] = true;
 		traversal.push_back(curr);
 
 		for(int i : graph(curr)){
 			if(!visited(i)){
 				if(graph[curr][i] != 0){
-					bfsqueue.push(i);
+					bfsq.push(i);
 				}
 			}
 		}
