@@ -341,33 +341,52 @@ std::vector<int> Graph::BFS(int start){
 	return traversal;
 }
 
-std::map<int, float> Graph::Djikstra(int country_code) { //given a country code, returns min distance to every node represented in a map where key is a node in graph val is dist to that node 
+std::vector<float> Graph::Djikstra(int country_code) { //given a country code, returns min distance to every node represented in a map where key is a node in graph val is dist to that node 
 	std::priority_queue<std::pair<float, int>, std::vector<std::pair<float, int>>, std::greater<std::pair<float, int>>> inverse_pq;
 	int key_row = countrycodes(country_code); //Gets the row we need to go to on matrix based on country code passed
 	std::vector<float>vect_dist;
 	inverse_pq.push({0,key_row}); //Start off by adding dist of 0 as well as our start node represented as index to priority que
-	for (int x = 0; x < graph.size(); x++) { //Set all distances to maximum value in C++
-		vect_dist[x] = INT_MAX; //Included in .h file
+	for (size_t x = 0; x < graph.size(); x++) { //Set all distances to maximum value in C++
+		vect_dist[x] = FLT_MAX; //Included in .h file
 	}
 	vect_dist[key_row] = 0; //Set dist at start (key_row for now to 0)
 	while(!inverse_pq.empty()) {
 		float dist = inverse_pq.top().first;
 		int node = inverse_pq.top().second;
 		key_row = node;
-		for (int col = 0; col < graph[0].size(); col++) { //Based on what node (or row we have to go to on matrix), iiterate across row
+		for (size_t col = 0; col < graph[0].size(); col++) { //Based on what node (or row we have to go to on matrix), iiterate across row
 			if (graph[key_row][col] != 0 && ((1/graph[key_row][col]) + dist) < vect_dist[col]) { //As we itterate ensure that val isn't 0 and dist calculated to go that node < what's currently present
 				vect_dist[col] = 1/graph[key_row][col] + dist; //update the distance
+				inverse_pq.push({vect_dist[col], col});
 			}
 		}
 		inverse_pq.pop(); //remove top elemnt
 	}
-	//Now we should convert our vector into a map
-	std::map<int, float>min_dist_to_nodes;
-	for (int x = 0; x < vect_dist.size(); x++) {
-		min_dist_to_nodes[x] = vect_dist[x]; //convert index back into country code?
+	return vect_dist;
+}
+
+std::vector<float> Graph::TestDjikstra(int idx, std::vector<std::vector<float>> test_graph) { //Used purely for testing purposes sijnce hard to test + interpert on large graph
+	std::priority_queue<std::pair<float, int>, std::vector<std::pair<float, int>>, std::greater<std::pair<float, int>>> inverse_pq;
+	int key_row = idx; //Gets the row we need to go to on matrix based on country code passed
+	std::vector<float>vect_dist;
+	inverse_pq.push({0,key_row}); //Start off by adding dist of 0 as well as our start node represented as index to priority que
+	for (size_t x = 0; x < test_graph.size(); x++) { //Set all distances to maximum value in C++
+		vect_dist.push_back(FLT_MAX); //Included in .h file
 	}
-	return min_dist_to_nodes;
-} //What to do about testing + using Djikstra's for interpertation
+	vect_dist[key_row] = 0; //Set dist at start (key_row for now to 0)
+	while(!inverse_pq.empty()) {
+		float dist = inverse_pq.top().first;
+		key_row = inverse_pq.top().second;
+		for (size_t col = 0; col < test_graph[0].size(); col++) { //Based on what node (or row we have to go to on matrix), iiterate across row
+			if (test_graph[key_row][col] != 0 && ((1/test_graph[key_row][col]) + dist) < vect_dist[col]) { //As we itterate ensure that val isn't 0 and dist calculated to go that node < what's currently present
+				vect_dist[col] = 1/test_graph[key_row][col] + dist; //update the distance
+				inverse_pq.push({vect_dist[col], col});
+			}
+		}
+		inverse_pq.pop(); //remove top elemnt
+	}
+	return vect_dist;
+}
 
 
 std::vector<int> Graph::pagerank(int iterations) {
