@@ -365,7 +365,7 @@ std::vector<float> Graph::Djikstra(int country_code) { //given a country code, r
 	return vect_dist;
 }
 
-std::vector<float> Graph::TestDjikstra(int idx, std::vector<std::vector<float>> test_graph) { //Used purely for testing purposes sijnce hard to test + interpert on large graph
+std::vector<float> Graph::TestDjikstra(int idx, std::vector<std::vector<float>> test_graph) { //Used purely for testing purposes since hard to test + interpert on large graph
 	std::priority_queue<std::pair<float, int>, std::vector<std::pair<float, int>>, std::greater<std::pair<float, int>>> inverse_pq;
 	int key_row = idx; //Gets the row we need to go to on matrix based on country code passed
 	std::vector<float>vect_dist;
