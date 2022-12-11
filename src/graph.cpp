@@ -14,6 +14,9 @@
 // v: value 
 // q: quantity
 
+Graph::Graph() { //Used purely for testing purposes since hard to test and interpert with very large graph 
+	return;
+}
 
 //Takes csv file input of the trade data and constructs the vector of vectors graph; an adjacency matrix
 Graph::Graph(const std::string& db_fpath) {
