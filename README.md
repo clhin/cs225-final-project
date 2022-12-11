@@ -22,4 +22,4 @@ To use this database in this project, unzip the folder, and then add the file "B
 This project should be run in the class Docker container. To run firstly clone the repo, and add the csv to the cs225-final-project directory. Withing the project directory, you should set up a build folder to use cmake by running `mkdir build`, `cd build`, then `cmake ..`. The tests can be compiled using `make test` and run using `./test`. To compile main simply use `make main`, and to run use `./main`.
 
 # Running Visualizations
-Visualizations will not work in the standard Docker environment, as they require Gnuplot to run. To run locally, the https://alandefreitas.github.io/matplotplusplus/
+Visualizations will not work in the standard Docker environment, as they require Gnuplot to run. To run locally, the library matplotplusplus is required, and a the functions need to be uncommented and called. Matplotplusplus: https://alandefreitas.github.io/matplotplusplus/
