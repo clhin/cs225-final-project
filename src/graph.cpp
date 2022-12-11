@@ -4,7 +4,6 @@
 #include <string>
 #include <fstream>
 #include <queue>
-#define NATION_COUNT 200 // placeholder if we use vectors
 
 // List of Variables :
 // t: year
