@@ -11,7 +11,7 @@ Entry contains the main file, which will run BFS starting from the US, Djikstra'
 ## SRC
 This contains all of the algorithms, node building, and commented out files for visualizations.
 
-##Tests
+## Tests
 This contains all the tests in our project. The node building tests are done by building a graph and checking outputs, Djikstra's algorithm, BFS, and Page Rank are all tested functions using test fucntions that take in smaller datasets as input.
 
 # Data
