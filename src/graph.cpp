@@ -76,8 +76,7 @@ std::vector<int> Graph::BFS(int start){
 	std::queue<int> bfsq; //queue to keep track of the traversal.
 	bfsq.push(start); //loading the queue with the first point.
 
-	std::vector<int> traversal; //vector that contains the traversal history.
-	traversal.push_back(start); //loading the vector with the first point.
+	std::vector<int> traversal;//vector that contains the traversal history.
 
 	std::vector<bool> visited(graph.size(), false); //vector that keeps track of the history of points visited.
 	visited[start] = true; //marking the first point as visited.
@@ -85,13 +84,13 @@ std::vector<int> Graph::BFS(int start){
 	while(!bfsq.empty()){ //loop that traverses every point, marking each as visited, and saving the order in the traversal vector.
 		int curr = bfsq.front();
 		bfsq.pop();
+		traversal.push_back(curr);
 
-		for(int i : graph[curr]){
+		for(unsigned long i = 0; i < graph[curr].size(); i++){
 			if(!visited[i]){
 				if(graph[curr][i] != 0){
 					bfsq.push(i);
-					visited[curr] = true;
-					traversal.push_back(curr);
+					visited[i] = true;
 				}
 			}
 		}
