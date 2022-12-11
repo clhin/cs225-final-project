@@ -104,3 +104,16 @@ TEST_CASE("djikstra4", "[weight=10][part1]") { //Similar to previous test case e
     REQUIRE(compare_float(correct_dist_from_five,output_five));
 }
 */
+
+//The sum of all the page rank outputs should be 1, as the outputs of page rank are all probabilities
+TEST_CASE("PageRankOutput", "[weight=10][part1]"){
+
+    std::vector<float> PageRankOutput = nations.pagerank(100);
+
+    float sum = 0.0;
+    for(unsigned i = 0; i < PageRankOutput.size(); i++){
+		sum += PageRankOutput[i];
+	}
+    bool inRange = (sum < 1.01) && (sum > .99);
+    REQUIRE(inRange == true);
+}
