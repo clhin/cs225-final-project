@@ -2,6 +2,16 @@
 #include <cmath>
 #include "graph.h"
 
+bool compare_float(std::vector<float>vect_1, std::vector<float>vect_2){
+     for (size_t x = 0; x <vect_1.size(); x++) {
+        if (std::abs(vect_1[x] - vect_2[x]) >= 0.001) {
+           return false;
+        }
+    }
+    return true;
+
+}
+
 Graph nations = Graph("../BACI_HS17_Y2020_V202201.csv");
 
 //first trade pair only one value
