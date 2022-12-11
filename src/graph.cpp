@@ -69,6 +69,123 @@ float Graph::Exports(int exporter, int importer){
 	return graph[normExporter][normImporter];
 }
 
+/* A function that runs a BFS traversal of the graph starting from a given start point.
+Inputs: The starting country code, given as an int
+Outputs: A vector containing the BFS traversal order of the graph, full of country codes.
+*/
+std::vector<int> Graph::BFS(int start){
+	std::queue<int> bfsq; //queue to keep track of the traversal.
+	bfsq.push(start); //loading the queue with the first point.
+
+	std::vector<int> traversal; //vector that contains the traversal history.
+	traversal.push_back(start); //loading the vector with the first point.
+
+	std::vector<bool> visited(graph.size(), false); //vector that keeps track of the history of points visited.
+	visited[start] = true; //marking the first point as visited.
+
+	while(!bfsq.empty()){ //loop that traverses every point, marking each as visited, and saving the order in the traversal vector.
+		int curr = bfsq.front();
+		bfsq.pop();
+
+		for(int i : graph[curr]){
+			if(!visited[i]){
+				if(graph[curr][i] != 0){
+					bfsq.push(i);
+					visited[curr] = true;
+					traversal.push_back(curr);
+				}
+			}
+		}
+	}
+	return traversal;
+}
+//Given a country code, returns the approximate trade price to all other countries represented in a vector. We assume that trade price is inversly proptional to dollar amount of exports between countries
+std::vector<float> Graph::Djikstra(int idx) { 
+	std::priority_queue<std::pair<float, int>, std::vector<std::pair<float, int>>, std::greater<std::pair<float, int>>> inverse_pq;
+	int key_row = idx; //Gets the row we need to go to on matrix based on country code passed
+	std::vector<float>vect_dist;
+	inverse_pq.push({0,key_row}); //Start off by adding dist of 0 as well as our start node represented as index to priority que
+	for (size_t x = 0; x < graph.size(); x++) { //Set all distances to maximum value in C++
+		vect_dist.push_back(FLT_MAX); //Included in .h file
+	}
+	vect_dist[key_row] = 0; //Set dist at start (key_row for now to 0)
+	while(!inverse_pq.empty()) {
+		float dist = inverse_pq.top().first;
+		int node = inverse_pq.top().second;
+		key_row = node;
+		for (size_t col = 0; col < graph[0].size(); col++) { //Based on what node (or row we have to go to on matrix), iiterate across row
+			if (graph[key_row][col] != 0 && ((1/graph[key_row][col]) + dist) < vect_dist[col]) { //As we itterate ensure that val isn't 0 and dist calculated to go that node < what's currently present
+				vect_dist[col] = 1/graph[key_row][col] + dist; //update the distance
+				inverse_pq.push({vect_dist[col], col});
+			}
+		}
+		inverse_pq.pop(); //remove top elemnt
+	}
+	return vect_dist;
+}
+
+std::vector<float> Graph::TestDjikstra(int idx, std::vector<std::vector<float>> test_graph) { //Used purely for testing purposes since hard to test + interpert on large graph
+	std::priority_queue<std::pair<float, int>, std::vector<std::pair<float, int>>, std::greater<std::pair<float, int>>> inverse_pq;
+	int key_row = idx; //Gets the row we need to go to on matrix based on country code passed
+	std::vector<float>vect_dist;
+	inverse_pq.push({0,key_row}); //Start off by adding dist of 0 as well as our start node represented as index to priority que
+	for (size_t x = 0; x < test_graph.size(); x++) { //Set all distances to maximum value in C++
+		vect_dist.push_back(FLT_MAX); //Included in .h file
+	}
+	vect_dist[key_row] = 0; //Set dist at start (key_row for now to 0)
+	while(!inverse_pq.empty()) {
+		float dist = inverse_pq.top().first;
+		key_row = inverse_pq.top().second;
+		for (size_t col = 0; col < test_graph[0].size(); col++) { //Based on what node (or row we have to go to on matrix), iiterate across row
+			if (test_graph[key_row][col] != 0 && ((1/test_graph[key_row][col]) + dist) < vect_dist[col]) { //As we itterate ensure that val isn't 0 and dist calculated to go that node < what's currently present
+				vect_dist[col] = 1/test_graph[key_row][col] + dist; //update the distance
+				inverse_pq.push({vect_dist[col], col});
+			}
+		}
+		inverse_pq.pop(); //remove top elemnt
+	}
+	return vect_dist;
+}
+
+
+std::vector<float> Graph::pagerank(int iterations) {
+	double dampeningfactor = 0.82;
+	int size = graph.size();
+	std::vector<float> currentpagerank, inlinks(size, 0), outlinks(size, 0);
+	for (uint row = 0; row < graph.size(); row++) {
+		for (uint col = 0; col < graph.at(row).size(); col++) {
+			if (graph.at(row).at(col) != 0) {
+				outlinks.at(row)++;
+				inlinks.at(col)++;
+			}
+		}
+	}
+	for (uint row = 0; row < graph.size(); row++) {
+			currentpagerank.push_back(1/size);
+	}
+	while (iterations > 0) {
+		float rank = 0;
+		std::vector<float> newpagerank(currentpagerank.size(), 0);
+		for (uint i = 0; i < outlinks.size(); i++) {
+			if (outlinks.at(i) == 0)
+				rank = rank + dampeningfactor * 1.0 * currentpagerank.at(i)/size;
+		}
+		for (uint row = 0; row < graph.size(); row++) {
+			newpagerank.at(row) = rank + (1-dampeningfactor)/size;
+			for (uint i = 0; i < inlinks[row]; i++) {
+				if (outlinks.at(i) == 0)
+					continue;
+				newpagerank.at(row) = newpagerank.at(row) + (1.0 * dampeningfactor*currentpagerank.at(i))/outlinks.at(i);
+			}
+		}
+		currentpagerank = newpagerank;
+		iterations--;
+	}
+	return currentpagerank;
+}
+
+
+
 //takes country code input as an int and returns the enumerated value of the country, ie the position in the vectors
 //in each node
 int Graph::countrycodes(int i){
@@ -314,119 +431,4 @@ int Graph::countrycodes(int i){
 
 	}
 	return -1;
-}
-
-/* A function that runs a BFS traversal of the graph starting from a given start point.
-Inputs: The starting country code, given as an int
-Outputs: A vector containing the BFS traversal order of the graph, full of country codes.
-*/
-std::vector<int> Graph::BFS(int start){
-	std::queue<int> bfsq; //queue to keep track of the traversal.
-	bfsq.push(start); //loading the queue with the first point.
-
-	std::vector<int> traversal; //vector that contains the traversal history.
-	traversal.push_back(start); //loading the vector with the first point.
-
-	std::vector<bool> visited(graph.size(), false); //vector that keeps track of the history of points visited.
-	visited[start] = true; //marking the first point as visited.
-
-	while(!bfsq.empty()){ //loop that traverses every point, marking each as visited, and saving the order in the traversal vector.
-		int curr = bfsq.front();
-		bfsq.pop();
-
-		for(int i : graph[curr]){
-			if(!visited[i]){
-				if(graph[curr][i] != 0){
-					bfsq.push(i);
-					visited[curr] = true;
-					traversal.push_back(curr);
-				}
-			}
-		}
-	}
-	return traversal;
-}
-//Given a country code, returns the approximate trade price to all other countries represented in a vector. We assume that trade price is inversly proptional to dollar amount of exports between countries
-std::vector<float> Graph::Djikstra(int idx) { 
-	std::priority_queue<std::pair<float, int>, std::vector<std::pair<float, int>>, std::greater<std::pair<float, int>>> inverse_pq;
-	int key_row = idx; //Gets the row we need to go to on matrix based on country code passed
-	std::vector<float>vect_dist;
-	inverse_pq.push({0,key_row}); //Start off by adding dist of 0 as well as our start node represented as index to priority que
-	for (size_t x = 0; x < graph.size(); x++) { //Set all distances to maximum value in C++
-		vect_dist.push_back(FLT_MAX); //Included in .h file
-	}
-	vect_dist[key_row] = 0; //Set dist at start (key_row for now to 0)
-	while(!inverse_pq.empty()) {
-		float dist = inverse_pq.top().first;
-		int node = inverse_pq.top().second;
-		key_row = node;
-		for (size_t col = 0; col < graph[0].size(); col++) { //Based on what node (or row we have to go to on matrix), iiterate across row
-			if (graph[key_row][col] != 0 && ((1/graph[key_row][col]) + dist) < vect_dist[col]) { //As we itterate ensure that val isn't 0 and dist calculated to go that node < what's currently present
-				vect_dist[col] = 1/graph[key_row][col] + dist; //update the distance
-				inverse_pq.push({vect_dist[col], col});
-			}
-		}
-		inverse_pq.pop(); //remove top elemnt
-	}
-	return vect_dist;
-}
-
-std::vector<float> Graph::TestDjikstra(int idx, std::vector<std::vector<float>> test_graph) { //Used purely for testing purposes since hard to test + interpert on large graph
-	std::priority_queue<std::pair<float, int>, std::vector<std::pair<float, int>>, std::greater<std::pair<float, int>>> inverse_pq;
-	int key_row = idx; //Gets the row we need to go to on matrix based on country code passed
-	std::vector<float>vect_dist;
-	inverse_pq.push({0,key_row}); //Start off by adding dist of 0 as well as our start node represented as index to priority que
-	for (size_t x = 0; x < test_graph.size(); x++) { //Set all distances to maximum value in C++
-		vect_dist.push_back(FLT_MAX); //Included in .h file
-	}
-	vect_dist[key_row] = 0; //Set dist at start (key_row for now to 0)
-	while(!inverse_pq.empty()) {
-		float dist = inverse_pq.top().first;
-		key_row = inverse_pq.top().second;
-		for (size_t col = 0; col < test_graph[0].size(); col++) { //Based on what node (or row we have to go to on matrix), iiterate across row
-			if (test_graph[key_row][col] != 0 && ((1/test_graph[key_row][col]) + dist) < vect_dist[col]) { //As we itterate ensure that val isn't 0 and dist calculated to go that node < what's currently present
-				vect_dist[col] = 1/test_graph[key_row][col] + dist; //update the distance
-				inverse_pq.push({vect_dist[col], col});
-			}
-		}
-		inverse_pq.pop(); //remove top elemnt
-	}
-	return vect_dist;
-}
-
-
-std::vector<float> Graph::pagerank(int iterations) {
-	double dampeningfactor = 0.85;
-	int size = graph.size();
-	std::vector<float> currentpagerank, inlinks(size, 0), outlinks(size, 0);
-	for (uint row = 0; row < graph.size(); row++) {
-		for (uint col = 0; col < graph.at(row).size(); col++) {
-			if (graph.at(row).at(col) != 0) {
-				outlinks.at(row)++;
-				inlinks.at(col)++;
-			}
-		}
-	}
-	for (uint row = 0; row < graph.size(); row++) {
-			currentpagerank.push_back(1/size);
-	}
-	while (iterations > 0) {
-		int rank = 0;
-		std::vector<float> newpagerank(currentpagerank.size(), 0);
-		for (uint i = 0; i < outlinks.size(); i++) {
-			if (outlinks.at(i) == 0)
-				rank = rank + dampeningfactor * currentpagerank.at(i)/size;
-		}
-		for (uint row = 0; row < graph.size(); row++) {
-			newpagerank.at(row) = rank + (1-dampeningfactor)/size;
-			for (uint i = 0; i < inlinks.size(); i++) {
-				if (outlinks.at(i) == 0)
-					continue;
-				newpagerank.at(row) = newpagerank.at(row) + (dampeningfactor*currentpagerank.at(i))/outlinks.at(i);
-			}
-		}
-		currentpagerank = newpagerank;
-		iterations--;
-	}
-	return currentpagerank;
 }
