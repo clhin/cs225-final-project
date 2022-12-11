@@ -395,9 +395,8 @@ std::vector<float> Graph::TestDjikstra(int idx, std::vector<std::vector<float>> 
 std::vector<float> Graph::pagerank(int iterations) {
 	double dampeningfactor = 0.85;
 	int size = graph.size();
-	std::vector<float> currentpagerank, newpagerank, inlinks(size, 0), outlinks(size, 0);
+	std::vector<float> currentpagerank, inlinks(size, 0), outlinks(size, 0);
 	for (uint row = 0; row < graph.size(); row++) {
-		//int outlinks = 0; inlinks = 0;
 		for (uint col = 0; col < graph.at(row).size(); col++) {
 			if (graph.at(row).at(col) != 0) {
 				outlinks.at(row)++;
@@ -410,6 +409,7 @@ std::vector<float> Graph::pagerank(int iterations) {
 	}
 	while (iterations > 0) {
 		int rank = 0;
+		std::vector<float> newpagerank(currentpagerank.size(), 0);
 		for (uint i = 0; i < outlinks.size(); i++) {
 			if (outlinks.at(i) == 0)
 				rank = rank + dampeningfactor * currentpagerank.at(i)/size;

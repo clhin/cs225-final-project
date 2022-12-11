@@ -36,7 +36,7 @@ terrordb
 *.dSYM
 
 build
-entry/core
+core
 
 #unzipped csv
 BACI_*.csv
