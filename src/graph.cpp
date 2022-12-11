@@ -420,6 +420,8 @@ std::vector<float> Graph::pagerank(int iterations) {
 		for (uint row = 0; row < graph.size(); row++) {
 			newpagerank.at(row) = rank + (1-dampeningfactor)/size;
 			for (uint i = 0; i < inlinks.size(); i++) {
+				if (outlinks.at(i) == 0)
+					continue;
 				newpagerank.at(row) = newpagerank.at(row) + (dampeningfactor*currentpagerank.at(i))/outlinks.at(i);
 			}
 		}
