@@ -61,6 +61,8 @@ Graph::Graph(const std::string& db_fpath) {
 float Graph::Exports(int exporter, int importer){
 	int normExporter = countrycodes(exporter);
 	int normImporter = countrycodes(importer);
+	if (normExporter == -1 || normImporter == -1)
+		return -1;
 	return graph[normExporter][normImporter];
 }
 
