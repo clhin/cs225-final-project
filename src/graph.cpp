@@ -347,13 +347,13 @@ std::vector<int> Graph::BFS(int start){
 	return traversal;
 }
 //Given a country code, returns the approximate trade price to all other countries represented in a vector. We assume that trade price is inversly proptional to dollar amount of exports between countries
-std::vector<float> Graph::Djikstra(int country_code) { 
+std::vector<float> Graph::Djikstra(int idx) { 
 	std::priority_queue<std::pair<float, int>, std::vector<std::pair<float, int>>, std::greater<std::pair<float, int>>> inverse_pq;
-	int key_row = countrycodes(country_code); //Gets the row we need to go to on matrix based on country code passed
+	int key_row = idx; //Gets the row we need to go to on matrix based on country code passed
 	std::vector<float>vect_dist;
 	inverse_pq.push({0,key_row}); //Start off by adding dist of 0 as well as our start node represented as index to priority que
 	for (size_t x = 0; x < graph.size(); x++) { //Set all distances to maximum value in C++
-		vect_dist[x] = FLT_MAX; //Included in .h file
+		vect_dist.push_back(FLT_MAX); //Included in .h file
 	}
 	vect_dist[key_row] = 0; //Set dist at start (key_row for now to 0)
 	while(!inverse_pq.empty()) {
