@@ -10,6 +10,7 @@
 
 class Graph {
 	public:
+	Graph();
 	    Graph(const std::string& db_fpath);
         float Exports(int exporter, int importer);
 		std::vector<int> BFS(int start);
