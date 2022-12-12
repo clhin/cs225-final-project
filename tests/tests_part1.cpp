@@ -57,7 +57,7 @@ TEST_CASE("bfs1", "[weight=10][part1]"){
     REQUIRE(bfsrow1 == row1);
 }
 
-//Djikstra Test Cases XXX FIXME XXX
+//Djikstra Test Cases
 TEST_CASE("djikstra1", "[weight=10][part1]") { //Tests Undirected Simple Graph
     std::vector<std::vector<float>> test_matrix_one= {
     {0, 10, 20, 30, 0},
