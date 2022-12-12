@@ -1,5 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <cmath>
+#include <vector>
 #include "graph.h"
 
 bool compare_float(std::vector<float>vect_1, std::vector<float>vect_2){
@@ -41,6 +42,15 @@ TEST_CASE("buildGraph4", "[weight=10][part1]"){
 //another large trade pair, using ceil because float is only accurate to 7 digits
 TEST_CASE("buildGraph5", "[weight=10][part1]"){
     REQUIRE(ceil(148533.361f) == ceil(nations.Exports(112,31)));
+}
+
+//BFS test case from actual dataset
+//checks that the first non-zero values of BFS called on row 1 equal row 1 from the graph, adding the starting value
+TEST_CASE("bfs1", "[weight=10][part1]"){
+    std::vector<int>row1 = {1, 7, 8, 9, 10, 14, 16, 18, 20, 21, 22, 23, 28, 29, 30, 31, 32, 33, 35, 36, 39, 41, 42, 45, 46, 48, 51, 52, 54, 56, 57, 58, 60, 61, 62, 64, 66, 69, 70, 71, 75, 78, 84, 88, 90, 93, 94, 95, 96, 99, 100, 101, 102, 103, 104, 105, 106, 107, 109, 110, 111, 113, 115, 118, 119, 120, 121, 123, 126, 127, 128, 130, 131, 132, 133, 135, 136, 138, 141, 149, 150, 151, 155, 158, 160, 161, 163, 164, 165, 167, 168, 171, 172, 173, 185, 186, 187, 190, 191, 192, 194, 196, 198, 199, 204, 205, 206, 209, 210, 214, 216, 220, 221, 222, 224, 225, 227, 229, 230, 231, 237};
+    std::vector<int>bfsrow1 = nations.BFS(1);
+    bfsrow1.resize(row1.size());
+    REQUIRE(bfsrow1 == row1);
 }
 
 //Djikstra Test Cases XXX FIXME XXX
