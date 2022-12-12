@@ -16,7 +16,7 @@ This contains all the tests in our project. The node building tests are done by 
 
 ## Data
 We use the BACI Bilateral Trade Database, which can be downloaded here: http://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS17_V202201.zip
-To use this database in this project, unzip the folder, and then add the file 'BACI_HS17_Y2020_V202201.csv' to the cloned repo.
+To use this database in this project, unzip the folder, and then add the file `BACI_HS17_Y2020_V202201.csv` to the cloned repo.
 
 ## Running Instructions
 This project should be run in the class Docker container. To run firstly clone the repo, and add the csv to the cs225-final-project directory. Withing the project directory, you should set up a build folder to use cmake by running `mkdir build`, then `cd build`, then `cmake ..`. The tests can be compiled using `make test` and run using `./test`. To compile main simply use `make main`, and to run use `./main`, from there you will be prompted to input counties.
