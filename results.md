@@ -20,4 +20,4 @@ PageRank:
 
 
 ## Conclusion
-By implementing the algorithms we were able to find the largest exporting and importing nations	 as well as through Dijkstra's Algorithm we were able to create an approximate comparison between the trading costs between two nations especially when there may be a cheaper country to route trade through, and through Page Rank we were able to find which nations do trade with the most countries, 
+By implementing the algorithms we were able to find the largest exporting and importing nations	 as well as through Dijkstra's Algorithm we were able to create an approximate comparison between the trading costs between two nations especially when there may be a cheaper country to route trade through, and through Page Rank we were able to find which nations do trade with the most countries, a decent metric for approximating nations with the most open trade.
