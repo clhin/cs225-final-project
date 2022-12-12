@@ -147,36 +147,46 @@ std::vector<float> Graph::TestDjikstra(int idx, std::vector<std::vector<float>> 
 
 
 std::vector<float> Graph::pagerank(int iterations) {
+	//this represents the probability that a traversal will stop, in our case
+	//it is when a country stops trading
 	double dampeningfactor = 0.82;
 	int size = graph.size();
 	std::vector<float> currentpagerank, inlinks(size, 0), outlinks(size, 0);
 	for (uint row = 0; row < graph.size(); row++) {
 		for (uint col = 0; col < graph.at(row).size(); col++) {
+			//find our inlinks and outlinks count
 			if (graph.at(row).at(col) != 0) {
 				outlinks.at(row)++;
 				inlinks.at(col)++;
 			}
 		}
 	}
+	// build the initial rank, a rule of thumb to maintain a pagerank is that all
+	// elements should sum to 1
 	for (uint row = 0; row < graph.size(); row++) {
 			currentpagerank.push_back(1/size);
 	}
+	// iterations can be adjusted, more iterations = more accurate rank
+	// this is also where the algorithm proper starts
 	while (iterations > 0) {
 		float rank = 0;
 		std::vector<float> newpagerank(currentpagerank.size(), 0);
+		//this loop is for the pageranks of dangling links
 		for (uint i = 0; i < outlinks.size(); i++) {
 			if (outlinks.at(i) == 0)
 				rank = rank + dampeningfactor * 1.0 * currentpagerank.at(i)/size;
 		}
 		for (uint row = 0; row < graph.size(); row++) {
-			newpagerank.at(row) = rank + (1-dampeningfactor)/size;
+			newpagerank.at(row) = rank + (1-dampeningfactor)/size; //randomly jump pagerank
 			for (uint i = 0; i < inlinks[row]; i++) {
+				//make sure we aren't divinding by zero;
 				if (outlinks.at(i) == 0)
 					continue;
+				//get pagerank of inlinks
 				newpagerank.at(row) = newpagerank.at(row) + (1.0 * dampeningfactor*currentpagerank.at(i))/outlinks.at(i);
 			}
 		}
-		currentpagerank = newpagerank;
+		currentpagerank = newpagerank; //update the rank
 		iterations--;
 	}
 	return currentpagerank;
