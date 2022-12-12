@@ -182,7 +182,29 @@ std::vector<float> Graph::pagerank(int iterations) {
 	return currentpagerank;
 }
 
-
+std::vector<int> Graph::pageranksearch(int country, std::vector<float> rank) {
+	std::vector<int> searchresult;
+	for (uint i = 0; i < graph.at(country).size(); i++) {
+		if (graph.at(country).at(i) == 0)
+			continue;
+		if (searchresult.empty()) {
+			searchresult.push_back(i);
+		} else if (searchresult.at(0)  < rank.at(i)) {
+			searchresult.emplace(searchresult.begin(),i);
+		} else if (searchresult.at(1) < rank.at(i)) {
+			searchresult.emplace(searchresult.begin()+1,i);
+			if (searchresult.size() > 3) {
+				searchresult.erase(searchresult.begin()+3);
+			}
+		} else if (searchresult.at(2) < rank.at(i)) {
+			searchresult.emplace(searchresult.begin()+2,i);
+			if (searchresult.size() > 3) {
+				searchresult.erase(searchresult.begin()+3);
+			}
+		}
+	}
+	return searchresult;
+}
 
 //takes country code input as an int and returns the enumerated value of the country, ie the position in the vectors
 //in each node

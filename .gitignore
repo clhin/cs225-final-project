@@ -38,5 +38,7 @@ terrordb
 build
 core
 
+.DS_Store
+
 #unzipped csv
 BACI_*.csv

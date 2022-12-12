@@ -15,6 +15,7 @@ class Graph {
         float Exports(int exporter, int importer);
 		std::vector<int> BFS(int start);
 		std::vector<float> pagerank(int i);
+		std::vector<int> pageranksearch(int country, std::vector<float> rank);
 		std::vector<float> Djikstra(int idx);
 		std::vector<float> TestDjikstra(int country_code, std::vector<std::vector<float>> test_graph);
 	private:
