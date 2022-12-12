@@ -16,7 +16,16 @@ This takes in a country code and returns the approximate trade price to all othe
 
 
 The run time of this algorithm is O(C^2 * logC) where C represents country code (node). In order to test the algorithm, I had a separate function that would test djikstra’s on smaller graphs since it would be difficult to test and interpret results on the graph used in the project. The tester function is similar to the original except in addition to an index corresponding to a country on graph (matrix), a parameter representing the graph (matrix) was also passed in. 
-PageRank:
+
+## PageRank
+This algorithm was one of our more interesting implementations for the dataset. When running the pagerank algorithm,
+we found that the top ten countries with the most amount of countries traded to was as follows:
+Czechia, France, Korea, Poland, South Africa, Spain, Germany, Thailand, and Indonesia. This was very interesting to us
+as we originally thought that the US and China would be top results, but we dug into it a bit more and found that
+both the US and China have tariffs and sanctions on a number of countries that these "open port" countries lack. We
+tested our algorithm by making sure that, as a pagerank should, each element summed with the rest adds to 1. With
+floating point rounding, we decided to make this a bound between .99 and 1.01. We also made sure that we tested to make
+sure that the proper countries were showing up first, last, etc.
 
 
 ## Conclusion
