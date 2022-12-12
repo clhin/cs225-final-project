@@ -57,12 +57,17 @@ int main() {
 			else
 				std::cout<<"The Price of trading with both nations is the same"<<std::endl;
 		}
+		//invalid input message
+		else
+			std::cout<<"Invalid Inputs"<<std::endl;
 
 
 	}
+	//invalid country message
 	else
 		std::cout<<"Not a Valid Country"<<std::endl;
 
 	return 0;
 }
+
 
