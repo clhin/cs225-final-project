@@ -13,9 +13,9 @@ int main() {
 
 	int countryIdx = stringToIdx(countryIn);
 
-
+	//only runs with valid input
 	if(countryIdx != -1){
-		//BFS terminal output
+		//BFS terminal output, outputs BFS starting at input node as strings
 		std::vector<int> bfsout = nations.BFS(countryIdx);
 		std::vector<std::string> bfsString = idxVectToString(bfsout);
 
@@ -28,7 +28,7 @@ int main() {
 		}
 		std::cout<<std::endl<<std::endl;
 
-		//page rank terminal output
+		//page rank terminal output, outputs top three ranked nations that trade with input as strings
 		std::vector<float> pagerankout = nations.pagerank(100);
 		std::vector<int> importantPartners = nations.pageranksearch(countryIdx, pagerankout);
 		std::vector<std::string> importantPartnersString = idxVectToString(importantPartners);
@@ -36,7 +36,7 @@ int main() {
 		std::cout<<countryIn<<"'s Three Most Important Trade Partners Ranked by Page Rank: "<< importantPartnersString[0]<<", "<<importantPartnersString[1]<<", "<<importantPartnersString[2]<<std::endl<<std::endl;
 
 
-		//terminal interface for Djikstra that compares the price of trading with two nations
+		//terminal interface for Djikstra that compares the price of trading with two nations with the input nation
 		std::vector<float> DjikstraOut = nations.Djikstra(countryIdx);
 		std::string compare1, compare2;
 		std::cout<<"Enter two naitons to compare trading costs with the input nation, where the trading cost is determined using Djikstra's Algorithm \nto find the shortest path between two nations where the weight of the path is defined by the inverse of trade\nvolume, this approximates the price of trade as Economies of Scale make the prices of trade lower where there is more trade\n";
@@ -47,7 +47,8 @@ int main() {
 
 		int compare1Idx = stringToIdx(compare1);
 		int compare2Idx = stringToIdx(compare2);
-
+		
+		//checks if inputs are valid before comparison
 		if(compare1Idx != -1 && compare2Idx != -1){
 			if(DjikstraOut[compare1Idx] < DjikstraOut[compare2Idx])
 				std::cout<<"It is Cheaper to Trade with "<<compare1<<std::endl;
