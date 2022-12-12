@@ -1,10 +1,11 @@
+/*
 #include "graph.h"
 #include "visualizations.h"
 #include <string>
 #include <vector>
 #include <matplot/matplot.h>
 
-/*
+
 
 //This visualizes a nation/node on the graph and maps all of its edges on a world map, and colors the edges red or green 
 //based on whether the nation is a net importer or exporter, red for importer green for exporter
