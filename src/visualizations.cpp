@@ -43,8 +43,8 @@ void PageRankVisualization(int country, std::vector<int> rankings){
     //iterates through the ranking, and then adds the points and edges to the map
     for(unsigned i = 0; i < rankings.size(); i++){
 
-        std::string outName = getCountryName(i);
-        std::vector<float> outCoords = getCountryCoords(i);
+        std::string outName = getCountryName(rankings[i]);
+        std::vector<float> outCoords = getCountryCoords(rankings[i]);
         matplot::geoplot(std::vector{inCoords[0], outCoords[0]}, std::vector{inCoords[1], outCoords[1]}, "r");
         matplot::text(outCoords[1], outCoords[0], outName);
         matplot::hold(matplot::on);
