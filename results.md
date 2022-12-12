@@ -27,6 +27,7 @@ tested our algorithm by making sure that, as a pagerank should, each element sum
 floating point rounding, we decided to make this a bound between .99 and 1.01. We also made sure that we tested to make
 sure that the proper countries were showing up first, last, etc. We achieved a runtime of iterations * O(n+m), but depending on how many iterations
 are performed, this could take a lot of time for a linear output.
+![PageRank](https://github.com/clhin/cs225-final-project/blob/main/reportImages/pagerank.png)
 
 We definitely answered the leading questions we proposed about the most active trade countries with this algorithm. As stated, running the pagerank
 algorithm allowed us to see what countries with the most active ports were (listed above). As for trade dependence, we attempted to solve this with
