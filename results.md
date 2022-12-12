@@ -26,7 +26,7 @@ both the US and China have tariffs and sanctions on a number of countries that t
 tested our algorithm by making sure that, as a pagerank should, each element summed with the rest adds to 1. With
 floating point rounding, we decided to make this a bound between .99 and 1.01. We also made sure that we tested to make
 sure that the proper countries were showing up first, last, etc. We achieved a runtime of iterations * O(n+m), but depending on how many iterations
-are performed, this could take a lot of time for a linear output.
+are performed, this could take a lot of time for a linear output. Here is a visualization of the page rank search function, which returns the three highest ranked countries that an input country trades with:
 ![PageRank](https://github.com/clhin/cs225-final-project/blob/main/reportImages/pagerank.png)
 
 We definitely answered the leading questions we proposed about the most active trade countries with this algorithm. As stated, running the pagerank
@@ -35,4 +35,4 @@ pagerank and a search function, but we think our results would be more valuable 
 anyone's trade network will obviously cause lots of damage, but it may not correlate to the most amount of trade done with the target country.
 
 ## Conclusion
-By implementing the algorithms we were able to find the largest exporting and importing nations	 as well as through Dijkstra's Algorithm we were able to create an approximate comparison between the trading costs between two nations especially when there may be a cheaper country to route trade through, and through Page Rank we were able to find which nations do trade with the most countries, a decent metric for approximating nations with the most open trade.
+By implementing the algorithms we were able to find the largest exporting and importing nations as well as through Dijkstra's Algorithm we were able to create an approximate comparison between the trading costs between two nations especially when there may be a cheaper country to route trade through, and through Page Rank we were able to find which nations do trade with the most countries, a decent metric for approximating nations with the most open trade. BFS provides a potential trade path in order to export to all nations.
