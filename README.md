@@ -23,3 +23,12 @@ This project should be run in the class Docker container. To run firstly clone t
 
 ## Running Visualizations
 Visualizations will not work in the standard Docker environment, as they require Gnuplot to run. To run locally, the library matplotplusplus is required, and the functions need to be uncommented and called. The balanceOfTradeMap function takes a country and a completed graph as an input, and the PageRankVisualization takes a country as input and the output of pageRankSearch on that fuction as input. Matplotplusplus: https://alandefreitas.github.io/matplotplusplus/
+
+## Team
+Rithvik Kopparapu (rithvik9@illinois.edu) 
+
+John Hofmann (johnwh3@illinois.edu) 
+
+Praneeth Rangamudri (jrang3@illinois.edu) 
+
+Chase Hinkle (chinkle3@illinois.edu) 
