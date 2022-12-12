@@ -8,7 +8,7 @@ After finishing our project, we were able to successfully determine the answer t
 
 ## BFS
 When implementing BFS, we wanted it to be able to work easily on the main dataset. So, it is structured as follows: For input, it takes in a start country code (a node on our graph) and it uses a queue to do the traversal, a vector of booleans to mark nodes visited, and traverses the graph (represented as a vector of vectors) using a while loop with a for loop inside. The algorithm returns a vector containing the country by country BFS traversal, starting with the “start” country given. Since the output is simply a vector of country codes, we implemented a few functions that convert from country code to the country name, making the output more clear to visualize. This is shown in main.cpp, where if you enter a country name, our program will take it, convert to a country code, run BFS starting from there, convert the vector of ints back to country names, and print it out to see. An example of this output is listed here: 
-![BFS Results](https://github.com/clhin/cs225-final-project/blob/main/reportImages/bfs results.png?raw=true)
+![BFS Results](https://github.com/clhin/cs225-final-project/blob/main/reportImages/bfs%20results.png)
 The runtime of BFS matches as expected, O(C+A) (C representing each country (node), and A representing each trade pair (edge)). For testing, since we were running this algorithm on the dataset itself, we took one row of country codes from the graph, and checked that the first few non-zero entries of the BFS vector starting from said row matches the row from the graph exactly. This test worked with several rows, and in our test case, we included a sample row and matched it to a BFS vector run on that row.
 
 ## Dijkstra's Algorithm
