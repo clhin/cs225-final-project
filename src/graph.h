@@ -6,6 +6,7 @@
 #include <functional>
 #include <queue>
 #include <float.h>
+#include <algorithm>
 #include <bits/stdc++.h>
 
 class Graph {

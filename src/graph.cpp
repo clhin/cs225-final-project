@@ -193,26 +193,18 @@ std::vector<float> Graph::pagerank(int iterations) {
 }
 
 std::vector<int> Graph::pageranksearch(int country, std::vector<float> rank) {
+	
 	std::vector<int> searchresult;
+	std::vector<std::pair<float,int>> pair;
 	for (uint i = 0; i < graph.at(country).size(); i++) {
 		if (graph.at(country).at(i) == 0)
 			continue;
-		if (searchresult.empty()) {
-			searchresult.push_back(i);
-		} else if (searchresult.at(0)  < rank.at(i)) {
-			searchresult.emplace(searchresult.begin(),i);
-		} else if (searchresult.at(1) < rank.at(i)) {
-			searchresult.emplace(searchresult.begin()+1,i);
-			if (searchresult.size() > 3) {
-				searchresult.erase(searchresult.begin()+3);
-			}
-		} else if (searchresult.at(2) < rank.at(i)) {
-			searchresult.emplace(searchresult.begin()+2,i);
-			if (searchresult.size() > 3) {
-				searchresult.erase(searchresult.begin()+3);
-			}
-		}
+		pair.push_back(std::pair<float,int>(rank.at(i),i));
 	}
+	std::sort(pair.begin(), pair.end());
+	searchresult.push_back(pair.at(pair.size()-1).second);
+	searchresult.push_back(pair.at(pair.size()-2).second);
+	searchresult.push_back(pair.at(pair.size()-3).second);
 	return searchresult;
 }
 
