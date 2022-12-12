@@ -3,6 +3,8 @@
 #include <vector>
 #include "graph.h"
 
+//helper function for dealing with float rounding problems, this takes two vectors and compares them to see if
+//every value is equal within a tolerance
 bool compare_float(std::vector<float>vect_1, std::vector<float>vect_2){
      for (size_t x = 0; x <vect_1.size(); x++) {
         if (std::abs(vect_1[x] - vect_2[x]) >= 0.001) {
@@ -13,6 +15,8 @@ bool compare_float(std::vector<float>vect_1, std::vector<float>vect_2){
 
 }
 
+//helper function for dealing with float rounding problems, this takes two floats and compares them to see if
+//both values are equal within a tolerance
 bool compare_single_float(float float_1, float float_2){
         if (std::abs(float_1 - float_2) >= 0.001) {
            return false;
@@ -132,6 +136,7 @@ TEST_CASE("PageRankOutput1", "[weight=10][part1]"){
     REQUIRE(inRange);
 }
 
+//expected output of one round of pagerank on index 0
 TEST_CASE("PageRankOutput2", "[weight=10][part1]"){
 
     std::vector<float> PageRankOutput = nations.pagerank(1);
