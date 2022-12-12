@@ -8,7 +8,7 @@ After finishing our project, we were able to successfully determine the answer t
 
 ## BFS
 When implementing BFS, we wanted it to be able to work easily on the main dataset. So, it is structured as follows: For input, it takes in a start country code (a node on our graph) and it uses a queue to do the traversal, a vector of booleans to mark nodes visited, and traverses the graph (represented as a vector of vectors) using a while loop with a for loop inside. The algorithm returns a vector containing the country by country BFS traversal, starting with the “start” country given. Since the output is simply a vector of country codes, we implemented a few functions that convert from country code to the country name, making the output more clear to visualize. This is shown in main.cpp, where if you enter a country name, our program will take it, convert to a country code, run BFS starting from there, convert the vector of ints back to country names, and print it out to see. An example of this output is listed here: 
-
+![BFS Results](https://github.com/clhin/cs225-final-project/blob/main/reportImages/bfs results.png?raw=true)
 The runtime of BFS matches as expected, O(C+A) (C representing each country (node), and A representing each trade pair (edge)). For testing, since we were running this algorithm on the dataset itself, we took one row of country codes from the graph, and checked that the first few non-zero entries of the BFS vector starting from said row matches the row from the graph exactly. This test worked with several rows, and in our test case, we included a sample row and matched it to a BFS vector run on that row.
 
 ## Dijkstra's Algorithm
@@ -16,16 +16,7 @@ This takes in a country code and returns the approximate trade price to all othe
 
 
 The run time of this algorithm is O(C^2 * logC) where C represents country code (node). In order to test the algorithm, I had a separate function that would test djikstra’s on smaller graphs since it would be difficult to test and interpret results on the graph used in the project. The tester function is similar to the original except in addition to an index corresponding to a country on graph (matrix), a parameter representing the graph (matrix) was also passed in. 
-
-## PageRank
-This algorithm was one of our more interesting implementations for the dataset. When running the pagerank algorithm,
-we found that the top ten countries with the most amount of countries traded to was as follows:
-Czechia, France, Korea, Poland, South Africa, Spain, Germany, Singapore, Thailand, and Indonesia. This was very interesting to us
-as we originally thought that the US and China would be top results, but we dug into it a bit more and found that
-both the US and China have tariffs and sanctions on a number of countries that these "open port" countries lack. We
-tested our algorithm by making sure that, as a pagerank should, each element summed with the rest adds to 1. With
-floating point rounding, we decided to make this a bound between .99 and 1.01. We also made sure that we tested to make
-sure that the proper countries were showing up first, last, etc.
+PageRank:
 
 
 ## Conclusion
