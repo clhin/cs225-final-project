@@ -20,7 +20,7 @@ The run time of this algorithm is O(C^2 * logC) where C represents country code 
 ## PageRank
 This algorithm was one of our more interesting implementations for the dataset. When running the pagerank algorithm,
 we found that the top ten countries with the most amount of countries traded to was as follows:
-Czechia, France, Korea, Poland, South Africa, Spain, Germany, Thailand, and Indonesia. This was very interesting to us
+Czechia, France, Korea, Poland, South Africa, Spain, Singapore, Germany, Thailand, and Indonesia. This was very interesting to us
 as we originally thought that the US and China would be top results, but we dug into it a bit more and found that
 both the US and China have tariffs and sanctions on a number of countries that these "open port" countries lack. We
 tested our algorithm by making sure that, as a pagerank should, each element summed with the rest adds to 1. With
