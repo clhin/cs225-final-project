@@ -14,6 +14,9 @@ This contains all of the algorithms, node building, and commented out files for 
 ### Tests
 This contains all the tests in our project. The node building tests are done by building a graph and checking outputs, Djikstra's algorithm uses a smaller graph as input to test, BFS uses the graph to compare with the expoected output, and Page Rank is tested by checking that the probabilities of the reankings all sum to one, and tested that after one iteration the results are correct.
 
+### Result Images
+This folder contains images of our algorithm results, outputs, and visualizations so we can link them elsewhere in the repo, such as our results.md.
+
 ## Data
 We use the BACI Bilateral Trade Database for 2020, which can be downloaded here: https://drive.google.com/drive/folders/1V_HJuovf_Ql6d2zJtBFoiWon96oyc1JM?usp=sharing
 To use this database in this project, download the file, and then add the file `BACI_HS17_Y2020_V202201.csv` to the cloned repo. To use other years of the data base see: http://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37
