@@ -15,8 +15,8 @@ This contains all of the algorithms, node building, and commented out files for 
 This contains all the tests in our project. The node building tests are done by building a graph and checking outputs, Djikstra's algorithm uses a smaller graph as input to test, BFS uses the graph to compare with the expoected output, and Page Rank is tested by checking that the probabilities of the reankings all sum to one, and tested that after one iteration the results are correct.
 
 ## Data
-We use the BACI Bilateral Trade Database, which can be downloaded here: http://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS17_V202201.zip
-To use this database in this project, unzip the folder, and then add the file `BACI_HS17_Y2020_V202201.csv` to the cloned repo.
+We use the BACI Bilateral Trade Database for 2020, which can be downloaded here: https://drive.google.com/drive/folders/1V_HJuovf_Ql6d2zJtBFoiWon96oyc1JM?usp=sharing
+To use this database in this project, download the file, and then add the file `BACI_HS17_Y2020_V202201.csv` to the cloned repo.
 
 ## Running Instructions
 This project should be run in the class Docker container. To run firstly clone the repo, and add the csv to the cs225-final-project directory. Withing the project directory, you should set up a build folder to use cmake by running `mkdir build`, then `cd build`, then `cmake ..`. The tests can be compiled using `make test` and run using `./test`. To compile main simply use `make main`, and to run use `./main`, from there you will be prompted to input counties.
