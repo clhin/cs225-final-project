@@ -5,7 +5,7 @@
 #include <fstream>
 #include <queue>
 
-// List of Variables :
+// List of Variables  as they are stored in the CSV
 // t: year
 // i: exporter
 // j: importer
@@ -19,6 +19,7 @@ Graph::Graph() { //Used purely for testing purposes since hard to test and inter
 
 //Takes csv file input of the trade data and constructs the vector of vectors graph; an adjacency matrix
 Graph::Graph(const std::string& db_fpath) {
+	//initializes all points on matrix to zero
 	for (uint x = 0; x <= 237; x++) {
 		std::vector<float> tmpvect;
 		for (uint y = 0; y <= 237; y++) {
@@ -29,12 +30,14 @@ Graph::Graph(const std::string& db_fpath) {
 	int lineCount = 0;
     std::string line;
 	std::ifstream db(db_fpath);
+	//parses through each line of the csv
 	while(getline(db, line, '\n')) {
 		size_t pos;
 		std::string token;
 		int exporter, importer;
 		float productVal;
 		unsigned count = 0;
+		//parses a row of the csv and gets the correct columns to be summed
 		while((pos = line.find(',')) != std::string::npos) {
 			token = line.substr(0, pos);
 			if (count != 1 && count != 2 && count != 4) {
@@ -54,12 +57,14 @@ Graph::Graph(const std::string& db_fpath) {
 			line.erase(0, pos + 1);
 			count++;	
 		}
+		//sums each item to get the
 		if(lineCount != 0)
 			graph[exporter][importer] += productVal;
 		lineCount++;
 	}
 }
 
+//This is a helper function used in testing
 float Graph::Exports(int exporter, int importer){
 	int normExporter = countrycodes(exporter);
 	int normImporter = countrycodes(importer);
@@ -192,6 +197,7 @@ std::vector<float> Graph::pagerank(int iterations) {
 	return currentpagerank;
 }
 
+//Takes in the output of Page rank and a country, and returns the top three ranked countries the input country trades with
 std::vector<int> Graph::pageranksearch(int country, std::vector<float> rank) {
 	
 	std::vector<int> searchresult;
@@ -208,6 +214,8 @@ std::vector<int> Graph::pageranksearch(int country, std::vector<float> rank) {
 	return searchresult;
 }
 
+
+//Takes a country as a string and returns it's node index, used for terminal input
 int stringToIdx(std::string country){
 	std::vector<std::string> names = {
         "Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Antigua and Barbuda","Azerbaijan","Argentina","Australia","Austria","Bahamas","Bahrain","Bangladesh",
@@ -215,7 +223,7 @@ int stringToIdx(std::string country){
         "Solomon Islands","British Virgin Islands","Brunei Darussalam","Bulgaria","Myanmar","Burundi","Belarus","Cambodia","Cameroon","Canada","Cabo Verde","Cayman Islands","Central African Republic",
         "Sri Lanka","Chad","Chile","China","Christmas Islands","Cocos Islands","Colombia","Comoros","Mayotte","Congo","Democratic Republic of the Congo","Cook Islands","Costa Rica","Croatia","Cuba",
         "Cyprus","Czechoslovakia","Czechia","Benin","Denmark","Dominica","Dominican Republic","Ecuador","El Salvador","Equatorial Guinea","Ethiopia","Eritrea","Estonia","Falkland Islands (Malvinas)",
-        "Fiji","Finland","France, Monaco","French Polynesia","French South Antarctic Territories","Djibouti","Gabon","Georgia","Gambia","State of Palestine","Germany","Former Democratic Republic of Germany",
+        "Fiji","Finland","France", "Monaco","French Polynesia","French South Antarctic Territories","Djibouti","Gabon","Georgia","Gambia","State of Palestine","Germany","Former Democratic Republic of Germany",
         "Former Federal Republic of Germany","Ghana","Gibraltar","Kiribati","Greece","Greenland","Grenada","Guam","Guatemala","Guinea","Guyana","Haiti","Honduras","China, Hong Kong Special Administrative Region",
         "Hungary","Iceland","Indonesia","Iran","Iraq","Ireland","Israel","Italy","CÙte d'Ivoire","Jamaica","Japan","Kazakhstan","Jordan","Kenya","Democratic People's Republic of Korea","Republic of Korea",
         "Kuwait","Kyrgyzstan","Lao People's Dem. Rep.","Lebanon","Lesotho","Latvia","Liberia","Libya","Lithuania","Luxembourg","China, Macao Special Administrative Region","Madagascar","Malawi","Malaysia",
@@ -242,6 +250,7 @@ int stringToIdx(std::string country){
 		
 }
 
+//Takes in a vector of country indicies and returns a vector of their string names, used for terminal output
 std::vector<std::string> idxVectToString(std::vector<int> countryIdxs){
 	std::vector<std::string> output;
 
@@ -251,6 +260,7 @@ std::vector<std::string> idxVectToString(std::vector<int> countryIdxs){
 	return output;
 }
 
+//takes the country's node index and returns its name as a string
 std::string getCountryName(int index){
     std::vector<std::string> names = {
         "Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Antigua and Barbuda","Azerbaijan","Argentina","Australia","Austria","Bahamas","Bahrain","Bangladesh",
@@ -258,7 +268,7 @@ std::string getCountryName(int index){
         "Solomon Islands","British Virgin Islands","Brunei Darussalam","Bulgaria","Myanmar","Burundi","Belarus","Cambodia","Cameroon","Canada","Cabo Verde","Cayman Islands","Central African Republic",
         "Sri Lanka","Chad","Chile","China","Christmas Islands","Cocos Islands","Colombia","Comoros","Mayotte","Congo","Democratic Republic of the Congo","Cook Islands","Costa Rica","Croatia","Cuba",
         "Cyprus","Czechoslovakia","Czechia","Benin","Denmark","Dominica","Dominican Republic","Ecuador","El Salvador","Equatorial Guinea","Ethiopia","Eritrea","Estonia","Falkland Islands (Malvinas)",
-        "Fiji","Finland","France, Monaco","French Polynesia","French South Antarctic Territories","Djibouti","Gabon","Georgia","Gambia","State of Palestine","Germany","Former Democratic Republic of Germany",
+        "Fiji","Finland","France", "Monaco","French Polynesia","French South Antarctic Territories","Djibouti","Gabon","Georgia","Gambia","State of Palestine","Germany","Former Democratic Republic of Germany",
         "Former Federal Republic of Germany","Ghana","Gibraltar","Kiribati","Greece","Greenland","Grenada","Guam","Guatemala","Guinea","Guyana","Haiti","Honduras","China, Hong Kong Special Administrative Region",
         "Hungary","Iceland","Indonesia","Iran","Iraq","Ireland","Israel","Italy","CÙte d'Ivoire","Jamaica","Japan","Kazakhstan","Jordan","Kenya","Democratic People's Republic of Korea","Republic of Korea",
         "Kuwait","Kyrgyzstan","Lao People's Dem. Rep.","Lebanon","Lesotho","Latvia","Liberia","Libya","Lithuania","Luxembourg","China, Macao Special Administrative Region","Madagascar","Malawi","Malaysia",
@@ -278,6 +288,7 @@ std::string getCountryName(int index){
 		return "-1";
 }
 
+//Takes an index and returns a latitude and longitude, used for visualizations
 std::vector<float> getCountryCoords(int index){
     std::vector<std::vector<float > > coords = {
         {33.93911,67.709953},{41.153332,20.168331},{28.033886,1.659626},{-14.270972,-170.132217},{42.546245,1.601554},{-11.202692,17.873887},{17.060816,-61.796428},{40.143105,47.576927},
@@ -319,8 +330,7 @@ std::vector<float> getCountryCoords(int index){
 
 
 
-//takes country code input as an int and returns the enumerated value of the country, ie the position in the vectors
-//in each node
+//takes country code input as an int and returns the enumerated value of the country, ie the position in the vectors in each node
 int Graph::countrycodes(int i){
 	switch (i){
 		case 4: return 0;
