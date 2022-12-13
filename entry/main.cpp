@@ -52,7 +52,7 @@ int main() {
 		if(compare1Idx != -1 && compare2Idx != -1){
 			if(DjikstraOut[compare1Idx] < DjikstraOut[compare2Idx])
 				std::cout<<"It is Cheaper to Trade with "<<compare1<<std::endl;
-			if(DjikstraOut[compare1Idx] > DjikstraOut[compare2Idx])
+			else if(DjikstraOut[compare1Idx] > DjikstraOut[compare2Idx])
 				std::cout<<"It is Cheaper to Trade with "<<compare2<<std::endl;
 			else
 				std::cout<<"The Price of trading with both nations is the same"<<std::endl;
